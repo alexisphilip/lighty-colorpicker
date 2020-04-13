@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!-- MAIN -->
+	<title>Color picker</title>
+	<meta charset="UTF-8">
+	<meta name="author" 	 content="Alexis Philip">
+	<meta name="description" content="Simple color picker.">
+	<meta name="keywords" 	 content="color-picker color picker color palette hue color selector">
+	<meta name="viewport"	 content="width=device-width, initial-scale=1.0">
+
+	<!-- CSS -->
+	<link rel="stylesheet" type="text/css" href="style.css">
+
+	<!-- JS -->
+	<script type="text/javascript">function log(p) {return console.log(p);}</script>
+</head>
+<body>
+
+<!-- Color picker -->
+<div class="color-picker">
+
+	<!-- Main section -->
+	<div class="section">
+
+		<!-- Color selector (palette) -->
+		<div class="palette-wrapper">
+			<canvas class="palette-canvas"></canvas>
+			<div class="palette-pointer"></div>
+		</div>
+
+		<!-- Output results -->
+		<div class="outputs-container">
+
+			<!-- Output color -->
+			<div class="output-color">
+				<div class="output-color-hover-rgb"><span>RGB</span></div>
+				<div class="output-color-hover-hex"><span>HEX</span></div>
+			</div>
+			
+			<!-- Output color data -->
+			<div class="output-data">
+				<div class="output-box">
+					<label>RGB</label>
+					<input type="text" class="output-rgb">
+				</div>
+				<div class="output-box">
+					<label>HEX</label>
+					<input type="text" class="output-hex">
+				</div>
+				<div class="output-box">
+					<label>HSL</label>
+					<input type="text" class="output-hsl">
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<!-- Hue selector -->
+	<div class="hue-wrapper">
+		<canvas class="hue-canvas"></canvas>
+		<div class="hue-pointer"></div>
+	</div>
+
+	<!-- Easter egg -->
+	<div class="egg-wrapper">
+
+		<!-- Output some data -->
+		<div class="nerd-stats">
+			<div class="cmd-line">| Main info |</div>
+			<div class="cmd-line execution-time"></div>
+			<div class="cmd-line cursor-x">CursorX:</div>
+			<div class="cmd-line cursor-y">CursorY:</div>
+			<div class="cmd-line"></div>
+		</div>
+		
+		<!-- Cmd -->
+		<div class="cmd"></div>
+
+	</div>
+
+</div>
+
+<!-- Color picker files -->
+<script type="text/javascript" src="cmd.js"></script>
+<script type="text/javascript" src="main.js"></script>
+
+</body>
+</html>
