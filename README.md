@@ -1,8 +1,8 @@
 # lighty-colorpicker
 
-https://alexisphilip.fr/lighty-colorpicker
+Demo: https://alexisphilip.fr/lighty-colorpicker
 
-`lighty-colorpicker.js` is a plain JavaScript color picker, working with RGB, HEX and HSL.
+`lighty-colorpicker` is a plain JavaScript color picker, working with RGB, HEX and HSL.
 
 ## Usage
 
