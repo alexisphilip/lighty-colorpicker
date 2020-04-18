@@ -47,6 +47,4 @@ This project is licensed under the [MIT License](https://choosealicense.com/lice
 
 ## Author
 
-Alexis Philip ([Website](https://alexisphilip.fr),
-[GitHub](https://github.com/alexis-philip),
-[LinkedIn](https://www.linkedin.com/in/alexis-philip-019955176)). 
+Alexis Philip ([Website](https://www.alexisphilip.fr)). 
