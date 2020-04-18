@@ -119,12 +119,12 @@ class ColorPicker
 		t0 = performance.now();
 
 		// Couleur de départ.
-		start_color = [50, 160, 160];
+		// start_color = [50, 160, 160];
 
 		// Start color random.
-		// for (var i = 0; i < 3; i++) {
-		// 	start_color.push(Math.floor(Math.random() * Math.floor(255)));
-		// }
+		for (var i = 0; i < 3; i++) {
+			start_color.push(Math.floor(Math.random() * Math.floor(255)));
+		}
 
 		// Assigne une nouvelle taille en pixel des carrés de la palette.
 		squaresize = this.getCookie("squaresize");
