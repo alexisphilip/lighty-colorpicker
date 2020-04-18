@@ -159,6 +159,7 @@ class ColorPicker
 		// Affiche le terminal et le démarre si le cookie existe ou si il l'autorise.
 		cmd_onload = this.getCookie("onload");
 		if (cmd_onload && cmd_onload != "false") this.cmd.start();
+		else this.cmd.start()
 		
 		// Charge le thème depuis un cookie si il existe.
 		scheme_name = this.getCookie("scheme");
