@@ -28,8 +28,8 @@
 // console.log("To CMYK");
 // console.log(rgbToCmyk(rgb[0], rgb[1], rgb[2]));
 
-var canvas = document.querySelector('#cp');
-var ctx = canvas.getContext('2d');
+var classicPaletteCanvas = document.querySelector("#classicPalette"),
+    classicPaletteCtx = classicPaletteCanvas.getContext("2d")
 
 // Color picker set up.
 var hue = [255, 0, 0],
@@ -40,57 +40,63 @@ var hue = [255, 0, 0],
     columns = Math.round(width / resolution_width),
     rows = Math.round(height / resolution_height);
 
-// White color.
-var white_r = 255,
-    white_g = 255,
-    white_b = 255,
-    hue_r = hue[0],
-    hue_g = hue[1],
-    hue_b = hue[2];
+drawClassicPalette();
 
-ctx.canvas.width = width;
-ctx.canvas.height = height;
+function drawClassicPalette() {
 
-for (let i = 0; i < rows; i++) {
+    var white_r = 255, // White color (color on the left).
+        white_g = 255,
+        white_b = 255,
+        hue_r = hue[0], // Hue color (color on the right).
+        hue_g = hue[1],
+        hue_b = hue[2];
 
-    var red = white_r,
-        green = white_g,
-        blue = white_b;
+    classicPaletteCtx.canvas.width = width;
+    classicPaletteCtx.canvas.height = height;
 
-    for (let j = 0; j < columns; j++) {
+    // For each rows.
+    for (let i = 0; i < rows; i++) {
 
-        ctx.fillStyle = "#" + rgbToHex(Math.round(red), Math.round(green), Math.round(blue));
-        ctx.fillRect(j * resolution_width, i * resolution_height, resolution_width, resolution_height);
+        var red = white_r,
+            green = white_g,
+            blue = white_b;
 
-        // Calculates the needed color from white (color on the left) and the hue (color on the right).
-        red -= (white_r - hue_r) / (columns - 1);
-        green -= (white_g - hue_g) / (columns - 1);
-        blue -= (white_b - hue_b) / (columns - 1);
+        // For each columns (individual cells).
+        for (let j = 0; j < columns; j++) {
+
+            classicPaletteCtx.fillStyle = "#" + rgbToHex(Math.round(red), Math.round(green), Math.round(blue));
+            classicPaletteCtx.fillRect(j * resolution_width, i * resolution_height, resolution_width, resolution_height);
+
+            // Calculates the needed color from white (color on the left) and the hue (color on the right).
+            red -= (white_r - hue_r) / (columns - 1);
+            green -= (white_g - hue_g) / (columns - 1);
+            blue -= (white_b - hue_b) / (columns - 1);
+
+            // If values are smaller than 0 (is this a JS float bug?).
+            // if (red < 0) red = 0;
+            // if (green < 0) green = 0;
+            // if (blue < 0) blue = 0;
+        }
+
+        // console.log(r_y, g_y, b_y);
+        // console.log(hue_r, hue_g, hue_b);
+
+        // Subtracts white color (color on the left).
+        white_r -= 255 / (rows - 1);
+        white_g -= 255 / (rows - 1);
+        white_b -= 255 / (rows - 1);
+
+        // Subtracts hue color (color on the right).
+        hue_r -= hue[0] / (rows - 1);
+        hue_g -= hue[1] / (rows - 1);
+        hue_b -= hue[2] / (rows - 1);
 
         // If values are smaller than 0 (is this a JS float bug?).
-        // if (red < 0) red = 0;
-        // if (green < 0) green = 0;
-        // if (blue < 0) blue = 0;
+        // if (white_r < 0) white_r = 0;
+        // if (white_g < 0) white_g = 0;
+        // if (white_b < 0) white_b = 0;
+        // if (hue_r < 0) hue_r = 0;
+        // if (hue_g < 0) hue_g = 0;
+        // if (hue_b < 0) hue_b = 0;
     }
-
-    // console.log(r_y, g_y, b_y);
-    // console.log(hue_r, hue_g, hue_b);
-
-    // Subtracts white color (color on the left).
-    white_r -= 255 / (rows - 1);
-    white_g -= 255 / (rows - 1);
-    white_b -= 255 / (rows - 1);
-
-    // Subtracts hue color (color on the right).
-    hue_r -= hue[0] / (rows - 1);
-    hue_g -= hue[1] / (rows - 1);
-    hue_b -= hue[2] / (rows - 1);
-
-    // If values are smaller than 0 (is this a JS float bug?).
-    // if (white_r < 0) white_r = 0;
-    // if (white_g < 0) white_g = 0;
-    // if (white_b < 0) white_b = 0;
-    // if (hue_r < 0) hue_r = 0;
-    // if (hue_g < 0) hue_g = 0;
-    // if (hue_b < 0) hue_b = 0;
 }
