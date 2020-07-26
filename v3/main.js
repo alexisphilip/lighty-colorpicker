@@ -37,11 +37,14 @@ var classicPaletteCanvas = document.querySelector("#classicPalette"),
 
 // Color picker set up.
 var classicPalette = {
-        hue: [255, 0, 0],
+        color_top_left: [255, 255, 255],
+        color_top_right: [255, 0, 0],
+        color_bottom_left: [0, 255, 0],
+        color_bottom_right: [0, 0, 255],
         width: 400,
-        height: 300,
-        resolution_width: 8,
-        resolution_height: 6
+        height: 400,
+        resolution_width: 2,
+        resolution_height: 2
     },
     huePalette = {
         fade: {
@@ -50,9 +53,9 @@ var classicPalette = {
             b: 255
         },
         width: 400,
-        height: 300,
-        resolution_width: 8,
-        resolution_height: 6
+        height: 400,
+        resolution_width: 2,
+        resolution_height: 2
     };
 
 drawClassicPalette();
@@ -71,8 +74,10 @@ function drawHuePalette() {
         fade_g = huePalette.fade.g,
         fade_b = huePalette.fade.b;
 
+    // For each rows (in/decrement the hue row).
     for (let i = 0; i < rows; i++) {
 
+        // For each columns (each column is a hue value, being decreased every row iteration).
         for (let j = 0; j < columns; j++) {
 
             // Sets the hue color.
@@ -95,12 +100,18 @@ function drawClassicPalette() {
 
     var columns = Math.round(classicPalette.width / classicPalette.resolution_width),
         rows = Math.round(classicPalette.height / classicPalette.resolution_height),
-        white_r = 255, // White color (color on the left).
-        white_g = 255,
-        white_b = 255,
-        hue_r = classicPalette.hue[0], // Hue color (color on the right).
-        hue_g = classicPalette.hue[1],
-        hue_b = classicPalette.hue[2];
+        top_left_r = classicPalette.color_top_left[0], // Color on the bottom left.
+        top_left_g = classicPalette.color_top_left[1],
+        top_left_b = classicPalette.color_top_left[2],
+        top_right_r = classicPalette.color_top_right[0], // Color on the top right.
+        top_right_g = classicPalette.color_top_right[1],
+        top_right_b = classicPalette.color_top_right[2],
+        bottom_left_r = classicPalette.color_bottom_left[0], // Color on the bottom left.
+        bottom_left_g = classicPalette.color_bottom_left[1],
+        bottom_left_b = classicPalette.color_bottom_left[2],
+        bottom_right_r = classicPalette.color_bottom_right[0], // Color on the bottom right.
+        bottom_right_g = classicPalette.color_bottom_right[1],
+        bottom_right_b = classicPalette.color_bottom_right[2];
 
     classicPaletteCtx.canvas.width = classicPalette.width;
     classicPaletteCtx.canvas.height = classicPalette.height;
@@ -108,9 +119,9 @@ function drawClassicPalette() {
     // For each rows.
     for (let i = 0; i < rows; i++) {
 
-        var red = white_r,
-            green = white_g,
-            blue = white_b;
+        var red = top_left_r,
+            green = top_left_g,
+            blue = top_left_b;
 
         // For each columns (individual cells).
         for (let j = 0; j < columns; j++) {
@@ -118,37 +129,21 @@ function drawClassicPalette() {
             classicPaletteCtx.fillStyle = "#" + rgbToHex(Math.round(red), Math.round(green), Math.round(blue));
             classicPaletteCtx.fillRect(j * classicPalette.resolution_width, i * classicPalette.resolution_height, classicPalette.resolution_width, classicPalette.resolution_height);
 
-            // Calculates the needed color from white (color on the left) and the hue (color on the right).
-            red -= (white_r - hue_r) / (columns - 1);
-            green -= (white_g - hue_g) / (columns - 1);
-            blue -= (white_b - hue_b) / (columns - 1);
-
-            // If values are smaller than 0 (is this a JS float bug?).
-            // if (red < 0) red = 0;
-            // if (green < 0) green = 0;
-            // if (blue < 0) blue = 0;
+            // Calculates the needed color from top left right to the top right color.
+            red -= (top_left_r - top_right_r) / (columns - 1);
+            green -= (top_left_g - top_right_g) / (columns - 1);
+            blue -= (top_left_b - top_right_b) / (columns - 1);
         }
 
-        // console.log(r_y, g_y, b_y);
-        // console.log(hue_r, hue_g, hue_b);
+        // In/decrement top left to bottom left colors.
+        top_left_r -= (classicPalette.color_top_left[0] - bottom_left_r) / (rows - 1);
+        top_left_g -= (classicPalette.color_top_left[1] - bottom_left_g) / (rows - 1);
+        top_left_b -= (classicPalette.color_top_left[2] - bottom_left_b) / (rows - 1);
 
-        // Subtracts white color (color on the left).
-        white_r -= 255 / (rows - 1);
-        white_g -= 255 / (rows - 1);
-        white_b -= 255 / (rows - 1);
-
-        // Subtracts hue color (color on the right).
-        hue_r -= classicPalette.hue[0] / (rows - 1);
-        hue_g -= classicPalette.hue[1] / (rows - 1);
-        hue_b -= classicPalette.hue[2] / (rows - 1);
-
-        // If values are smaller than 0 (is this a JS float bug?).
-        // if (white_r < 0) white_r = 0;
-        // if (white_g < 0) white_g = 0;
-        // if (white_b < 0) white_b = 0;
-        // if (hue_r < 0) hue_r = 0;
-        // if (hue_g < 0) hue_g = 0;
-        // if (hue_b < 0) hue_b = 0;
+        // In/decrement top right to bottom right colors.
+        top_right_r -= (classicPalette.color_top_right[0] - bottom_right_r) / (rows - 1);
+        top_right_g -= (classicPalette.color_top_right[1] - bottom_right_g) / (rows - 1);
+        top_right_b -= (classicPalette.color_top_right[2] - bottom_right_b) / (rows - 1);
     }
 }
 
