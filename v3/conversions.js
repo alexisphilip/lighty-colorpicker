@@ -13,6 +13,9 @@
  * RGB to HSV
  * RGB to HWB
  * RGB to CMYK
+ *
+ * Other:
+ * getHue
  */
 
 // ####
@@ -250,85 +253,190 @@ function rgbToCmyk(r, g, b) {
     return {c: c, m: m, y: y, k: k};
 }
 
+// #####
+// OTHER
+// #####
 
-function colorObject(rgb, a, h, s) {
-    var hsl, hwb, cmyk, ncol, color, hue, sat;
-    if (!rgb) {
-        return emptyObject();
+function getHue(steps) {
+    var r = 255,
+        g = 0,
+        b = 0,
+        values = [[r, g, b]];
+
+    var total_bits = 1530,
+        bits = total_bits / (steps - 1);
+
+    var round_steps = 1;
+
+    for (let i = 0; i < steps - 1; i++) {
+        var remaining = 0;
+        if (round_steps === 1) {
+            g += bits;
+            if (g > 255) {
+                remaining = g - 255;
+                g = 255;
+                round_steps++;
+            } else {
+                remaining = 0;
+                values.push([r, g, b]);
+            }
+        }
+        if (round_steps === 2) {
+            if (remaining) r -= remaining;
+            else r -= bits;
+            if (r < 0) {
+                remaining = Math.abs(r);
+                r = 0;
+                round_steps++;
+            } else {
+                remaining = 0;
+                values.push([r, g, b]);
+            }
+        }
+        if (round_steps === 3) {
+            if (remaining) b += remaining;
+            else b += bits;
+            if (b > 255) {
+                remaining = b - 255;
+                b = 255;
+                round_steps++;
+            } else {
+                remaining = 0;
+                values.push([r, g, b]);
+            }
+        }
+        if (round_steps === 4) {
+            if (remaining) g -= remaining;
+            else g -= bits;
+            if (g < 0) {
+                remaining = Math.abs(g);
+                g = 0;
+                round_steps++;
+            } else {
+                remaining = 0;
+                values.push([r, g, b]);
+            }
+        }
+        if (round_steps === 5) {
+            if (remaining) r += remaining;
+            else r += bits;
+            if (r > 255) {
+                remaining = r - 255;
+                r = 255;
+                round_steps++;
+            } else {
+                remaining = 0;
+                values.push([r, g, b]);
+            }
+        }
+        if (round_steps === 6) {
+            if (remaining) b -= remaining;
+            else b -= bits;
+            if (b < 0) {
+                remaining = Math.abs(b);
+                b = 0;
+                round_steps++;
+            } else {
+                remaining = 0;
+                values.push([r, g, b]);
+            }
+        }
+        // console.log(Math.round(r), Math.round(g), Math.round(b));
+
+        // Essayer avec des while() et remaining :
+        // var remaining = 0;
+        // while (g < 255);
+        // while (r > 0);
     }
-    if (a === null) {
-        a = 1;
+
+    // TODO: when asking for 100 steps, returns only 99
+    if (values.length !== steps) {
+        values.push([255, 0, 0]);
     }
-    hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
-    hwb = rgbToHwb(rgb.r, rgb.g, rgb.b);
-    cmyk = rgbToCmyk(rgb.r, rgb.g, rgb.b);
-    hue = (h || hsl.h);
-    sat = (s || hsl.s);
-    ncol = hueToNcol(hue);
-    color = {
-        red: rgb.r,
-        green: rgb.g,
-        blue: rgb.b,
-        hue: hue,
-        sat: sat,
-        lightness: hsl.l,
-        whiteness: hwb.w,
-        blackness: hwb.b,
-        cyan: cmyk.c,
-        magenta: cmyk.m,
-        yellow: cmyk.y,
-        black: cmyk.k,
-        ncol: ncol,
-        opacity: a,
-        valid: true
-    };
-    color = roundDecimals(color);
-    return color;
+
+    return values;
 }
 
-function emptyObject() {
-    return {
-        red: 0,
-        green: 0,
-        blue: 0,
-        hue: 0,
-        sat: 0,
-        lightness: 0,
-        whiteness: 0,
-        blackness: 0,
-        cyan: 0,
-        magenta: 0,
-        yellow: 0,
-        black: 0,
-        ncol: "R",
-        opacity: 1,
-        valid: false
-    };
-}
 
-function getColorArr(x) {
-    if (x == "names") {
-        return ['AliceBlue', 'AntiqueWhite', 'Aqua', 'Aquamarine', 'Azure', 'Beige', 'Bisque', 'Black', 'BlanchedAlmond', 'Blue', 'BlueViolet', 'Brown', 'BurlyWood', 'CadetBlue', 'Chartreuse', 'Chocolate', 'Coral', 'CornflowerBlue', 'Cornsilk', 'Crimson', 'Cyan', 'DarkBlue', 'DarkCyan', 'DarkGoldenRod', 'DarkGray', 'DarkGrey', 'DarkGreen', 'DarkKhaki', 'DarkMagenta', 'DarkOliveGreen', 'DarkOrange', 'DarkOrchid', 'DarkRed', 'DarkSalmon', 'DarkSeaGreen', 'DarkSlateBlue', 'DarkSlateGray', 'DarkSlateGrey', 'DarkTurquoise', 'DarkViolet', 'DeepPink', 'DeepSkyBlue', 'DimGray', 'DimGrey', 'DodgerBlue', 'FireBrick', 'FloralWhite', 'ForestGreen', 'Fuchsia', 'Gainsboro', 'GhostWhite', 'Gold', 'GoldenRod', 'Gray', 'Grey', 'Green', 'GreenYellow', 'HoneyDew', 'HotPink', 'IndianRed', 'Indigo', 'Ivory', 'Khaki', 'Lavender', 'LavenderBlush', 'LawnGreen', 'LemonChiffon', 'LightBlue', 'LightCoral', 'LightCyan', 'LightGoldenRodYellow', 'LightGray', 'LightGrey', 'LightGreen', 'LightPink', 'LightSalmon', 'LightSeaGreen', 'LightSkyBlue', 'LightSlateGray', 'LightSlateGrey', 'LightSteelBlue', 'LightYellow', 'Lime', 'LimeGreen', 'Linen', 'Magenta', 'Maroon', 'MediumAquaMarine', 'MediumBlue', 'MediumOrchid', 'MediumPurple', 'MediumSeaGreen', 'MediumSlateBlue', 'MediumSpringGreen', 'MediumTurquoise', 'MediumVioletRed', 'MidnightBlue', 'MintCream', 'MistyRose', 'Moccasin', 'NavajoWhite', 'Navy', 'OldLace', 'Olive', 'OliveDrab', 'Orange', 'OrangeRed', 'Orchid', 'PaleGoldenRod', 'PaleGreen', 'PaleTurquoise', 'PaleVioletRed', 'PapayaWhip', 'PeachPuff', 'Peru', 'Pink', 'Plum', 'PowderBlue', 'Purple', 'RebeccaPurple', 'Red', 'RosyBrown', 'RoyalBlue', 'SaddleBrown', 'Salmon', 'SandyBrown', 'SeaGreen', 'SeaShell', 'Sienna', 'Silver', 'SkyBlue', 'SlateBlue', 'SlateGray', 'SlateGrey', 'Snow', 'SpringGreen', 'SteelBlue', 'Tan', 'Teal', 'Thistle', 'Tomato', 'Turquoise', 'Violet', 'Wheat', 'White', 'WhiteSmoke', 'Yellow', 'YellowGreen'];
-    }
-    if (x == "hexs") {
-        return ['f0f8ff', 'faebd7', '00ffff', '7fffd4', 'f0ffff', 'f5f5dc', 'ffe4c4', '000000', 'ffebcd', '0000ff', '8a2be2', 'a52a2a', 'deb887', '5f9ea0', '7fff00', 'd2691e', 'ff7f50', '6495ed', 'fff8dc', 'dc143c', '00ffff', '00008b', '008b8b', 'b8860b', 'a9a9a9', 'a9a9a9', '006400', 'bdb76b', '8b008b', '556b2f', 'ff8c00', '9932cc', '8b0000', 'e9967a', '8fbc8f', '483d8b', '2f4f4f', '2f4f4f', '00ced1', '9400d3', 'ff1493', '00bfff', '696969', '696969', '1e90ff', 'b22222', 'fffaf0', '228b22', 'ff00ff', 'dcdcdc', 'f8f8ff', 'ffd700', 'daa520', '808080', '808080', '008000', 'adff2f', 'f0fff0', 'ff69b4', 'cd5c5c', '4b0082', 'fffff0', 'f0e68c', 'e6e6fa', 'fff0f5', '7cfc00', 'fffacd', 'add8e6', 'f08080', 'e0ffff', 'fafad2', 'd3d3d3', 'd3d3d3', '90ee90', 'ffb6c1', 'ffa07a', '20b2aa', '87cefa', '778899', '778899', 'b0c4de', 'ffffe0', '00ff00', '32cd32', 'faf0e6', 'ff00ff', '800000', '66cdaa', '0000cd', 'ba55d3', '9370db', '3cb371', '7b68ee', '00fa9a', '48d1cc', 'c71585', '191970', 'f5fffa', 'ffe4e1', 'ffe4b5', 'ffdead', '000080', 'fdf5e6', '808000', '6b8e23', 'ffa500', 'ff4500', 'da70d6', 'eee8aa', '98fb98', 'afeeee', 'db7093', 'ffefd5', 'ffdab9', 'cd853f', 'ffc0cb', 'dda0dd', 'b0e0e6', '800080', '663399', 'ff0000', 'bc8f8f', '4169e1', '8b4513', 'fa8072', 'f4a460', '2e8b57', 'fff5ee', 'a0522d', 'c0c0c0', '87ceeb', '6a5acd', '708090', '708090', 'fffafa', '00ff7f', '4682b4', 'd2b48c', '008080', 'd8bfd8', 'ff6347', '40e0d0', 'ee82ee', 'f5deb3', 'ffffff', 'f5f5f5', 'ffff00', '9acd32'];
-    }
-}
 
-function roundDecimals(c) {
-    c.red = Number(c.red.toFixed(0));
-    c.green = Number(c.green.toFixed(0));
-    c.blue = Number(c.blue.toFixed(0));
-    c.hue = Number(c.hue.toFixed(0));
-    c.sat = Number(c.sat.toFixed(2));
-    c.lightness = Number(c.lightness.toFixed(2));
-    c.whiteness = Number(c.whiteness.toFixed(2));
-    c.blackness = Number(c.blackness.toFixed(2));
-    c.cyan = Number(c.cyan.toFixed(2));
-    c.magenta = Number(c.magenta.toFixed(2));
-    c.yellow = Number(c.yellow.toFixed(2));
-    c.black = Number(c.black.toFixed(2));
-    c.ncol = c.ncol.substr(0, 1) + Math.round(Number(c.ncol.substr(1)));
-    c.opacity = Number(c.opacity.toFixed(2));
-    return c;
-}
+// function colorObject(rgb, a, h, s) {
+//     var hsl, hwb, cmyk, ncol, color, hue, sat;
+//     if (!rgb) {
+//         return emptyObject();
+//     }
+//     if (a === null) {
+//         a = 1;
+//     }
+//     hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
+//     hwb = rgbToHwb(rgb.r, rgb.g, rgb.b);
+//     cmyk = rgbToCmyk(rgb.r, rgb.g, rgb.b);
+//     hue = (h || hsl.h);
+//     sat = (s || hsl.s);
+//     ncol = hueToNcol(hue);
+//     color = {
+//         red: rgb.r,
+//         green: rgb.g,
+//         blue: rgb.b,
+//         hue: hue,
+//         sat: sat,
+//         lightness: hsl.l,
+//         whiteness: hwb.w,
+//         blackness: hwb.b,
+//         cyan: cmyk.c,
+//         magenta: cmyk.m,
+//         yellow: cmyk.y,
+//         black: cmyk.k,
+//         ncol: ncol,
+//         opacity: a,
+//         valid: true
+//     };
+//     color = roundDecimals(color);
+//     return color;
+// }
+
+// function emptyObject() {
+//     return {
+//         red: 0,
+//         green: 0,
+//         blue: 0,
+//         hue: 0,
+//         sat: 0,
+//         lightness: 0,
+//         whiteness: 0,
+//         blackness: 0,
+//         cyan: 0,
+//         magenta: 0,
+//         yellow: 0,
+//         black: 0,
+//         ncol: "R",
+//         opacity: 1,
+//         valid: false
+//     };
+// }
+
+// function getColorArr(x) {
+//     if (x == "names") {
+//         return ['AliceBlue', 'AntiqueWhite', 'Aqua', 'Aquamarine', 'Azure', 'Beige', 'Bisque', 'Black', 'BlanchedAlmond', 'Blue', 'BlueViolet', 'Brown', 'BurlyWood', 'CadetBlue', 'Chartreuse', 'Chocolate', 'Coral', 'CornflowerBlue', 'Cornsilk', 'Crimson', 'Cyan', 'DarkBlue', 'DarkCyan', 'DarkGoldenRod', 'DarkGray', 'DarkGrey', 'DarkGreen', 'DarkKhaki', 'DarkMagenta', 'DarkOliveGreen', 'DarkOrange', 'DarkOrchid', 'DarkRed', 'DarkSalmon', 'DarkSeaGreen', 'DarkSlateBlue', 'DarkSlateGray', 'DarkSlateGrey', 'DarkTurquoise', 'DarkViolet', 'DeepPink', 'DeepSkyBlue', 'DimGray', 'DimGrey', 'DodgerBlue', 'FireBrick', 'FloralWhite', 'ForestGreen', 'Fuchsia', 'Gainsboro', 'GhostWhite', 'Gold', 'GoldenRod', 'Gray', 'Grey', 'Green', 'GreenYellow', 'HoneyDew', 'HotPink', 'IndianRed', 'Indigo', 'Ivory', 'Khaki', 'Lavender', 'LavenderBlush', 'LawnGreen', 'LemonChiffon', 'LightBlue', 'LightCoral', 'LightCyan', 'LightGoldenRodYellow', 'LightGray', 'LightGrey', 'LightGreen', 'LightPink', 'LightSalmon', 'LightSeaGreen', 'LightSkyBlue', 'LightSlateGray', 'LightSlateGrey', 'LightSteelBlue', 'LightYellow', 'Lime', 'LimeGreen', 'Linen', 'Magenta', 'Maroon', 'MediumAquaMarine', 'MediumBlue', 'MediumOrchid', 'MediumPurple', 'MediumSeaGreen', 'MediumSlateBlue', 'MediumSpringGreen', 'MediumTurquoise', 'MediumVioletRed', 'MidnightBlue', 'MintCream', 'MistyRose', 'Moccasin', 'NavajoWhite', 'Navy', 'OldLace', 'Olive', 'OliveDrab', 'Orange', 'OrangeRed', 'Orchid', 'PaleGoldenRod', 'PaleGreen', 'PaleTurquoise', 'PaleVioletRed', 'PapayaWhip', 'PeachPuff', 'Peru', 'Pink', 'Plum', 'PowderBlue', 'Purple', 'RebeccaPurple', 'Red', 'RosyBrown', 'RoyalBlue', 'SaddleBrown', 'Salmon', 'SandyBrown', 'SeaGreen', 'SeaShell', 'Sienna', 'Silver', 'SkyBlue', 'SlateBlue', 'SlateGray', 'SlateGrey', 'Snow', 'SpringGreen', 'SteelBlue', 'Tan', 'Teal', 'Thistle', 'Tomato', 'Turquoise', 'Violet', 'Wheat', 'White', 'WhiteSmoke', 'Yellow', 'YellowGreen'];
+//     }
+//     if (x == "hexs") {
+//         return ['f0f8ff', 'faebd7', '00ffff', '7fffd4', 'f0ffff', 'f5f5dc', 'ffe4c4', '000000', 'ffebcd', '0000ff', '8a2be2', 'a52a2a', 'deb887', '5f9ea0', '7fff00', 'd2691e', 'ff7f50', '6495ed', 'fff8dc', 'dc143c', '00ffff', '00008b', '008b8b', 'b8860b', 'a9a9a9', 'a9a9a9', '006400', 'bdb76b', '8b008b', '556b2f', 'ff8c00', '9932cc', '8b0000', 'e9967a', '8fbc8f', '483d8b', '2f4f4f', '2f4f4f', '00ced1', '9400d3', 'ff1493', '00bfff', '696969', '696969', '1e90ff', 'b22222', 'fffaf0', '228b22', 'ff00ff', 'dcdcdc', 'f8f8ff', 'ffd700', 'daa520', '808080', '808080', '008000', 'adff2f', 'f0fff0', 'ff69b4', 'cd5c5c', '4b0082', 'fffff0', 'f0e68c', 'e6e6fa', 'fff0f5', '7cfc00', 'fffacd', 'add8e6', 'f08080', 'e0ffff', 'fafad2', 'd3d3d3', 'd3d3d3', '90ee90', 'ffb6c1', 'ffa07a', '20b2aa', '87cefa', '778899', '778899', 'b0c4de', 'ffffe0', '00ff00', '32cd32', 'faf0e6', 'ff00ff', '800000', '66cdaa', '0000cd', 'ba55d3', '9370db', '3cb371', '7b68ee', '00fa9a', '48d1cc', 'c71585', '191970', 'f5fffa', 'ffe4e1', 'ffe4b5', 'ffdead', '000080', 'fdf5e6', '808000', '6b8e23', 'ffa500', 'ff4500', 'da70d6', 'eee8aa', '98fb98', 'afeeee', 'db7093', 'ffefd5', 'ffdab9', 'cd853f', 'ffc0cb', 'dda0dd', 'b0e0e6', '800080', '663399', 'ff0000', 'bc8f8f', '4169e1', '8b4513', 'fa8072', 'f4a460', '2e8b57', 'fff5ee', 'a0522d', 'c0c0c0', '87ceeb', '6a5acd', '708090', '708090', 'fffafa', '00ff7f', '4682b4', 'd2b48c', '008080', 'd8bfd8', 'ff6347', '40e0d0', 'ee82ee', 'f5deb3', 'ffffff', 'f5f5f5', 'ffff00', '9acd32'];
+//     }
+// }
+
+// function roundDecimals(c) {
+//     c.red = Number(c.red.toFixed(0));
+//     c.green = Number(c.green.toFixed(0));
+//     c.blue = Number(c.blue.toFixed(0));
+//     c.hue = Number(c.hue.toFixed(0));
+//     c.sat = Number(c.sat.toFixed(2));
+//     c.lightness = Number(c.lightness.toFixed(2));
+//     c.whiteness = Number(c.whiteness.toFixed(2));
+//     c.blackness = Number(c.blackness.toFixed(2));
+//     c.cyan = Number(c.cyan.toFixed(2));
+//     c.magenta = Number(c.magenta.toFixed(2));
+//     c.yellow = Number(c.yellow.toFixed(2));
+//     c.black = Number(c.black.toFixed(2));
+//     c.ncol = c.ncol.substr(0, 1) + Math.round(Number(c.ncol.substr(1)));
+//     c.opacity = Number(c.opacity.toFixed(2));
+//     return c;
+// }
