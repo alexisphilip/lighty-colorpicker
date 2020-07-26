@@ -56,11 +56,11 @@ class Palette {
             columns = Math.round(this.width / this.width_resolution),
             rows = Math.round(this.height / this.height_resolution);
 
+        ctx.canvas.width = this.width;
+        ctx.canvas.height = this.height;
+
         // If the selected palette type if "hue".
         if (this.type === "hue") {
-
-            ctx.canvas.width = this.width;
-            ctx.canvas.height = this.height;
 
             var hue_values = getHue(columns),
                 fade_r = this.colorBottom[0], // The bottom fading color.
@@ -103,9 +103,6 @@ class Palette {
                 bottom_right_r = this.color_bottom_right[0], // Color on the bottom right.
                 bottom_right_g = this.color_bottom_right[1],
                 bottom_right_b = this.color_bottom_right[2];
-
-            ctx.canvas.width = this.width;
-            ctx.canvas.height = this.height;
 
             // For each rows.
             for (let i = 0; i < rows; i++) {

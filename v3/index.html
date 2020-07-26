@@ -11,13 +11,29 @@
 </head>
 <body>
 
-<div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
-    <canvas id="classicPalette" style="margin-bottom: 40px;"></canvas>
-    <canvas id="huePalette"></canvas>
+<div style="display: flex; justify-content: center; align-items: center;">
+    <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin-right: 40px;">
+        <div style="margin-bottom: 40px;">
+            <canvas id="classicPalette1" style="margin-right: 40px;"></canvas>
+            <canvas id="classicPalette2"></canvas>
+        </div>
+        <canvas id="huePalette"></canvas>
+    </div>
+    <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        <canvas id="classicSliderHorizontal1" style="margin-bottom: 40px;"></canvas>
+        <canvas id="classicSliderHorizontal2" style="margin-bottom: 40px;"></canvas>
+        <canvas id="hueSliderHorizontal" style="margin-bottom: 40px;"></canvas>
+        <div>
+            <canvas id="classicSliderVertical1" style="margin-right: 40px;"></canvas>
+            <canvas id="classicSliderVertical2" style="margin-right: 40px;"></canvas>
+            <canvas id="hueSliderVertical"></canvas>
+        </div>
+    </div>
 </div>
 
 <script src="conversions.js"></script>
 <script src="Palette.js"></script>
+<script src="Slider.js"></script>
 <script src="main.js"></script>
 </body>
 </html>
