@@ -15,6 +15,9 @@
  * https://stackoverflow.com/questions/2353211/hsl-to-rgb-color-conversion
  * https://axonflux.com/handy-rgb-to-hsl-and-rgb-to-hsv-color-model-c
  * TODO:
+ *   /!\ make it responsive! maybe change height and width by percentage? or "auto" mode?
+ *   /!\ when resolution changes, not all the canvas if filled with color squares: need to fix that!
+ *   change width_resolution, color_top_left to widthResolution, colorTopLeft...
  *   optimize Palette algo:
  *   see Slider algo: (if precision 10x10, generate row and column block 10x10 instead of 10 iterations do 1)
  */
@@ -67,7 +70,6 @@ var classicSliderVertical2 = new Slider({
 });
 
 
-
 var hueSliderHorizontal = new Slider({
     canvas: "#hueSliderHorizontal",
     type: "hue",
@@ -80,7 +82,6 @@ var hueSliderVertical = new Slider({
     type: "hue",
     orientation: "vertical"
 });
-
 
 
 var classicPalette1 = new Palette({
@@ -113,4 +114,18 @@ var huePalette = new Palette({
     widthResolution: 5,
     heightResolution: 5,
     colorBottom: [255, 255, 255]
+});
+
+document.querySelector("#huePaletteResolution").addEventListener("input", (e) => {
+    const res = parseInt(e.target.value);
+    huePalette.width_resolution = res;
+    huePalette.height_resolution = res;
+    huePalette.draw();
+});
+
+var dragDrop = new DragDrop({
+    canvas: "#huePalette",
+    pointer: "#huePalettePointer",
+    pointerX: 0,
+    pointerY: 0
 });

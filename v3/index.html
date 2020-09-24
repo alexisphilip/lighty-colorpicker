@@ -17,7 +17,10 @@
             <canvas id="classicPalette1" style="margin-right: 40px;"></canvas>
             <canvas id="classicPalette2"></canvas>
         </div>
+        <input type="number" id="huePaletteResolution" value="5" min="1" max="20">
         <canvas id="huePalette"></canvas>
+        <div id="huePalettePointer"
+             style="width: 30px; height: 30px; border-radius: 20px; border: 2px solid black; background-color: white;"></div>
     </div>
     <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
         <canvas id="classicSliderHorizontal1" style="margin-bottom: 40px;"></canvas>
@@ -32,6 +35,7 @@
 </div>
 
 <script src="conversions.js"></script>
+<script src="DragDrop.js"></script>
 <script src="Palette.js"></script>
 <script src="Slider.js"></script>
 <script src="main.js"></script>
