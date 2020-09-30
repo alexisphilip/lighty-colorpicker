@@ -1,5 +1,23 @@
+/**
+ * Slider.
+ *
+ * Sets up and builds a new slider element.
+ */
 class Slider {
 
+    /**
+     * Sets up the slider's attributes.
+     *
+     * @param {object|boolean} data:
+     * - {DOMString} canvas - DOM element selector string.
+     * - {string} [type=classic] - "classic" or "hue".
+     * - {string} [orientation=vertical] - "vertical" or "horizontal".
+     * - {int} [width=30]  - slider's width in pixel.
+     * - {int} [height=300] - slider's height in pixel.
+     * - {int} [resolution=2] - slider's resolution in pixel.
+     * - {array[number]} colorStart - start color in RGB [R, G, B] format.
+     * - {array[number]} colorEnd - end color in RGB [R, G, B] format.
+     */
     constructor(data = false) {
 
         if (data === false) {

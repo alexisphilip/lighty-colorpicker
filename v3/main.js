@@ -10,17 +10,20 @@
  *
  * Whiteness  (percentage of white)       0-100%
  * Blackness  (percentage of black)       0-100%
- *
- * TODO: see if this helps https://jonneal.dev/convert-colors/global.html#hex2hsv
- * https://stackoverflow.com/questions/2353211/hsl-to-rgb-color-conversion
- * https://axonflux.com/handy-rgb-to-hsl-and-rgb-to-hsv-color-model-c
- * TODO:
- *   /!\ make it responsive! maybe change height and width by percentage? or "auto" mode?
- *   /!\ when resolution changes, not all the canvas if filled with color squares: need to fix that!
- *   change width_resolution, color_top_left to widthResolution, colorTopLeft...
- *   optimize Palette algo:
- *   see Slider algo: (if precision 10x10, generate row and column block 10x10 instead of 10 iterations do 1)
  */
+
+
+// TODO: see if this helps https://jonneal.dev/convert-colors/global.html#hex2hsv
+//   https://stackoverflow.com/questions/2353211/hsl-to-rgb-color-conversion
+//   https://axonflux.com/handy-rgb-to-hsl-and-rgb-to-hsv-color-model-c
+// TODO:
+//   /!\ make it responsive! maybe change height and width by percentage? or "auto" mode?
+//   /!\ when resolution changes, not all the canvas if filled with color squares: need to fix that!
+//     change width_resolution, color_top_left to widthResolution, colorTopLeft...
+//   ColorPicker class: color conversions in common
+//   disable() enable() methods for palettes, slider and ColorPicker?
+//   optimize Palette algo:
+//    see Slider algo: (if precision 10x10, generate row and column block 10x10 instead of 10 iterations do 1)
 
 // var rgb = [85,114,156];
 //
@@ -123,9 +126,9 @@ document.querySelector("#huePaletteResolution").addEventListener("input", (e) =>
     huePalette.draw();
 });
 
-var dragDrop = new DragDrop({
-    canvas: "#huePalette",
-    pointer: "#huePalettePointer",
-    pointerX: 0,
-    pointerY: 0
-});
+// var dragDrop = new DragDrop({
+//     canvas: "#huePalette",
+//     pointer: "#huePalettePointer",
+//     pointerX: 0,
+//     pointerY: 0
+// });

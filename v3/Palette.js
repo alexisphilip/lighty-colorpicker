@@ -6,9 +6,19 @@
 class Palette {
 
     /**
-     * Sets up the palette attributes.
+     * Sets up the palette's attributes.
      *
-     * @param {object|boolean} data
+     * @param {object|boolean} data:
+     * - {DOMString} canvas - DOM element selector string.
+     * - {string} [type=classic] - "classic" or "hue".
+     * - {int} [width=300] - palette's width in pixel.
+     * - {int} [height=300] - palettes's height in pixel.
+     * - {int} [widthResolution=2] - palette's width's resolution in pixel.
+     * - {int} [heightResolution=2] - palette's width's resolution in pixel.
+     * - {array[number]} colorTopLeft - top left color in RGB [R, G, B] format.
+     * - {array[number]} colorTopRight - top right color in RGB [R, G, B] format.
+     * - {array[number]} colorBottomLeft - bottom left color in RGB [R, G, B] format.
+     * - {array[number]} colorBottomRight - bottom right color in RGB [R, G, B] format.
      */
     constructor(data = false) {
 
