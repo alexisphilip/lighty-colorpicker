@@ -4,6 +4,14 @@
  * Sets up and builds a new slider element.
  */
 class Slider {
+    type;
+    orientation;
+    width;
+    height;
+    resolution;
+    colorStart;
+    colorEnd;
+    canvas;
 
     /**
      * Sets up the slider's attributes.
@@ -34,8 +42,8 @@ class Slider {
             this.height = data.height ? data.height : 30;
         }
         this.resolution = data.resolution ? data.resolution : 2;
-        this.color_start = data.colorStart ? data.colorStart : [255, 255, 255];
-        this.color_end = data.colorEnd ? data.colorEnd : [0, 0, 0];
+        this.colorStart = data.colorStart ? data.colorStart : [255, 255, 255];
+        this.colorEnd = data.colorEnd ? data.colorEnd : [0, 0, 0];
 
         if (data.canvas && typeof data.canvas === "string") {
             var canvas = document.querySelector(data.canvas);
@@ -60,13 +68,13 @@ class Slider {
             // Sets the hue values if type = "hue".
             hue_values = [],
             // Sets the starting color, which will be in/decremented.
-            start_r = this.color_start[0],
-            start_g = this.color_start[1],
-            start_b = this.color_start[2],
+            start_r = this.colorStart[0],
+            start_g = this.colorStart[1],
+            start_b = this.colorStart[2],
             // Sets the ending color, which serves as a reference for the start color.
-            end_r = this.color_end[0],
-            end_g = this.color_end[1],
-            end_b = this.color_end[2],
+            end_r = this.colorEnd[0],
+            end_g = this.colorEnd[1],
+            end_b = this.colorEnd[2],
             // Number of iterations (400px width with 10px block = 40 iterations).
             iterations,
             // The block's position and size.
@@ -98,13 +106,13 @@ class Slider {
             hue_values = getHue(iterations);
         } else {
             // Sets the starting color, which will be in/decremented.
-            start_r = this.color_start[0];
-            start_g = this.color_start[1];
-            start_b = this.color_start[2];
+            start_r = this.colorStart[0];
+            start_g = this.colorStart[1];
+            start_b = this.colorStart[2];
             // Sets the ending color, which serves as a reference for the start color.
-            end_r = this.color_end[0];
-            end_g = this.color_end[1];
-            end_b = this.color_end[2];
+            end_r = this.colorEnd[0];
+            end_g = this.colorEnd[1];
+            end_b = this.colorEnd[2];
         }
 
         for (let i = 0; i < iterations; i++) {
@@ -119,9 +127,9 @@ class Slider {
             ctx.fillRect(i * block_x, i * block_y, block_w, block_h);
 
             if (this.type === "classic") {
-                start_r -= (this.color_start[0] - end_r) / (iterations - 1);
-                start_g -= (this.color_start[1] - end_g) / (iterations - 1);
-                start_b -= (this.color_start[2] - end_b) / (iterations - 1);
+                start_r -= (this.colorStart[0] - end_r) / (iterations - 1);
+                start_g -= (this.colorStart[1] - end_g) / (iterations - 1);
+                start_b -= (this.colorStart[2] - end_b) / (iterations - 1);
             }
         }
     }
