@@ -40,91 +40,91 @@
 // console.log(rgbToCmyk(rgb[0], rgb[1], rgb[2]));
 
 
-var classicSliderHorizontal1 = new Slider({
-    canvas: "#classicSliderHorizontal1",
-    type: "classic",
-    orientation: "horizontal",
-    height: 50,
-    colorStart: [225, 255, 0],
-    colorEnd: [255, 0, 0]
-});
-
-var classicSliderHorizontal2 = new Slider({
-    canvas: "#classicSliderHorizontal2",
-    type: "classic",
-    width: 250,
-    orientation: "horizontal"
-});
-
-var classicSliderVertical1 = new Slider({
-    canvas: "#classicSliderVertical1",
-    type: "classic",
-    orientation: "vertical",
-    resolution: 30
-});
-
-var classicSliderVertical2 = new Slider({
-    canvas: "#classicSliderVertical2",
-    type: "classic",
-    orientation: "vertical",
-    width: 50,
-    colorStart: [225, 255, 0],
-    colorEnd: [255, 0, 0]
-});
-
-
-var hueSliderHorizontal = new Slider({
-    canvas: "#hueSliderHorizontal",
-    type: "hue",
-    orientation: "horizontal",
-    resolution: 30
-});
-
+// var classicSliderHorizontal1 = new Slider({
+//     canvas: "#classicSliderHorizontal1",
+//     type: "classic",
+//     orientation: "horizontal",
+//     height: 50,
+//     colorStart: [225, 255, 0],
+//     colorEnd: [255, 0, 0]
+// });
+//
+// var classicSliderHorizontal2 = new Slider({
+//     canvas: "#classicSliderHorizontal2",
+//     type: "classic",
+//     width: 250,
+//     orientation: "horizontal"
+// });
+//
+// var classicSliderVertical1 = new Slider({
+//     canvas: "#classicSliderVertical1",
+//     type: "classic",
+//     orientation: "vertical",
+//     resolution: 30
+// });
+//
+// var classicSliderVertical2 = new Slider({
+//     canvas: "#classicSliderVertical2",
+//     type: "classic",
+//     orientation: "vertical",
+//     width: 50,
+//     colorStart: [225, 255, 0],
+//     colorEnd: [255, 0, 0]
+// });
+//
+//
+// var hueSliderHorizontal = new Slider({
+//     canvas: "#hueSliderHorizontal",
+//     type: "hue",
+//     orientation: "horizontal",
+//     resolution: 30
+// });
+//
 var hueSliderVertical = new Slider({
     canvas: "#hueSliderVertical",
     type: "hue",
     orientation: "vertical"
 });
 
-
-var classicPalette1 = new Palette({
-    canvas: "#classicPalette1",
-    type: "classic",
-    width: 200,
-    height: 250,
-    widthResolution: 20,
-    heightResolution: 10,
-    colorTopLeft: [255, 255, 255],
-    colorTopRight: [225, 0, 0],
-    colorBottomLeft: [0, 225, 0],
-    colorBottomRight: [0, 0, 255]
-});
-
+// var classicPalette1 = new Palette({
+//     canvas: "#classicPalette1",
+//     type: "classic",
+//     width: 500,
+//     height: 300,
+//     widthResolution: 20,
+//     heightResolution: 10,
+//     colorTopLeft: [255, 255, 255],
+//     colorTopRight: [225, 0, 0],
+//     colorBottomLeft: [0, 225, 0],
+//     colorBottomRight: [0, 0, 255]
+// });
+//
 var classicPalette2 = new Palette({
     canvas: "#classicPalette2",
     type: "classic",
-    width: 160,
-    height: 250,
-    widthResolution: 5,
-    heightResolution: 5
-});
-
-var huePalette = new Palette({
-    canvas: "#huePalette",
-    type: "hue",
-    width: 400,
-    height: 250,
+    width: 500,
+    height: 300,
     widthResolution: 5,
     heightResolution: 5,
-    colorBottom: [255, 255, 255]
+    colorTopRight: [255, 99, 71]
 });
+//
+// var huePalette = new Palette({
+//     canvas: "#huePalette",
+//     type: "hue",
+//     width: 400,
+//     height: 250,
+//     widthResolution: 5,
+//     heightResolution: 5,
+//     colorBottom: [255, 255, 255]
+// });
 
-document.querySelector("#huePaletteResolution").addEventListener("input", (e) => {
-    const res = parseInt(e.target.value);
-    huePalette.width_resolution = res;
-    huePalette.height_resolution = res;
-    huePalette.draw();
-});
+// document.querySelector("#huePaletteResolution").addEventListener("input", (e) => {
+//     const res = parseInt(e.target.value);
+//     huePalette.width_resolution = res;
+//     huePalette.height_resolution = res;
+//     huePalette.draw();
+// });
 
 // var dragDrop = new DragDrop({
 //     canvas: "#huePalette",
@@ -132,3 +132,11 @@ document.querySelector("#huePaletteResolution").addEventListener("input", (e) =>
 //     pointerX: 0,
 //     pointerY: 0
 // });
+
+let myColorPicker = new ColorPicker({
+    onChange: function() {
+        console.log("hi");
+    }
+});
+myColorPicker.addPalette(classicPalette2);
+myColorPicker.addSlider(hueSliderVertical);

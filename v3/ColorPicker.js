@@ -6,14 +6,22 @@
  */
 class ColorPicker {
 
-    palettes; // ?
-    sliders; // ?
+    palettes = []; // ?
+    sliders = []; // ?
     rgb;
     hex;
     hsl;
     hsv;
     hwb;
     cmyk;
+    /**
+     * TODO: think if this is the right way
+     *  Everytime a Palette()/Slider() is instantiated, they instantiate a DragDrop().
+     *  Each DragDrop() add two new EventListener (one on the element, one on the the element's HTML pointer)
+     *  Now, each listener will be told to execute the ColorPicker()'s "onChange" function.
+     *  /!\
+     */
+    onChange;
 
     constructor(data = false) {
 
@@ -42,5 +50,33 @@ class ColorPicker {
         this.hsv = rgbToHsv(r, g, b);
         this.hwb = rgbToHwb(r, g, b);
         this.cmyk = rgbToCmyk(r, g, b);
+    }
+
+    /**
+     * Adds one or multiple palettes to the color picker.
+     * @param {(object|object[])} palettes - One palette or an array of palettes.
+     */
+    addPalette(palettes) {
+        if (palettes instanceof Array) {
+            for (let i = 0; i < palettes.length; i++) {
+                this.palettes.push(palettes[i]);
+            }
+        } else {
+            this.palettes.push(palettes);
+        }
+    }
+
+    /**
+     * Adds one or multiple sliders to the color picker.
+     * @param {(object|object[])} sliders - One slide or an array of sliders.
+     */
+    addSlider(sliders) {
+        if (sliders instanceof Array) {
+            for (let i = 0; i < sliders.length; i++) {
+                this.palettes.push(sliders[i]);
+            }
+        } else {
+            this.palettes.push(sliders);
+        }
     }
 }
