@@ -45,15 +45,17 @@ class Slider {
         this.colorStart = data.colorStart ? data.colorStart : [255, 255, 255];
         this.colorEnd = data.colorEnd ? data.colorEnd : [0, 0, 0];
 
-        if (data.canvas && typeof data.canvas === "string") {
-            var canvas = document.querySelector(data.canvas);
-            if (canvas !== null && canvas.tagName === "CANVAS") {
-                this.canvas = document.querySelector(data.canvas);
+        if (data.selector) {
+            let element = document.querySelector(data.selector);
+            if (element !== undefined) {
+                this.canvas = document.createElement("canvas");
+                this.canvas.setAttribute("id", element.id + "Canvas");
+                element.appendChild(this.canvas);
             } else {
-                throw "Palette: canvas element specified not found.";
+                throw "Slider.selector: specified DOM element not found.";
             }
         } else {
-            throw "Palette: no canvas element specified.";
+            throw "Slider.selector: value is not specified."
         }
 
         this.draw();
@@ -63,6 +65,13 @@ class Slider {
      * Draws the slider.
      */
     draw() {
+        // TODO:
+        //  Split code in two parts:
+        //    if (classic) (default)
+        //      if (vertical) (default)
+        //      else (horizontal)
+        //    else (hue)
+        //  Then add same condition in the constructor
 
         var ctx = this.canvas.getContext("2d"),
             // Sets the hue values if type = "hue".
@@ -116,7 +125,6 @@ class Slider {
         }
 
         for (let i = 0; i < iterations; i++) {
-
             if (this.type === "hue") {
                 start_r = hue_values[i][0];
                 start_g = hue_values[i][1];

@@ -43,15 +43,17 @@ class Palette {
         this.widthResolution = data.widthResolution ? data.widthResolution : 2;
         this.heightResolution = data.heightResolution ? data.heightResolution : 2;
 
-        if (data.canvas && typeof data.canvas === "string") {
-            var canvas = document.querySelector(data.canvas);
-            if (canvas !== null && canvas.tagName === "CANVAS") {
-                this.canvas = document.querySelector(data.canvas);
+        if (data.selector) {
+            let element = document.querySelector(data.selector);
+            if (element !== undefined) {
+                this.canvas = document.createElement("canvas");
+                this.canvas.setAttribute("id", element.id + "Canvas");
+                element.appendChild(this.canvas);
             } else {
-                throw "Palette: canvas element specified not found.";
+                throw "Palette.selector: specified DOM element not found.";
             }
         } else {
-            throw "Palette: no canvas element specified.";
+            throw "Palette.selector: value is not specified."
         }
 
         if (this.type === "classic") {
@@ -62,7 +64,7 @@ class Palette {
         } else if (this.type === "hue") {
             this.colorBottom = data.colorBottom ? data.colorBottom : [255, 255, 255];
         } else {
-            throw "Palette: type specified does not exist";
+            throw "Palette.type: specified type does not exist.";
         }
 
         this.draw();
@@ -110,8 +112,7 @@ class Palette {
             }
         }
         // If the selected palette type if "classic".
-        else if (this.type === "classic") {
-
+        else {
             var top_left_r = this.colorTopLeft[0], // Color on the bottom left.
                 top_left_g = this.colorTopLeft[1],
                 top_left_b = this.colorTopLeft[2],
@@ -155,6 +156,5 @@ class Palette {
                 top_right_b -= (this.colorTopRight[2] - bottom_right_b) / (rows - 1);
             }
         }
-
     }
 }

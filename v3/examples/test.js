@@ -42,15 +42,19 @@
 // console.log("To CMYK");
 // console.log(rgbToCmyk(rgb[0], rgb[1], rgb[2]));
 
-
 let paletteClassic = new Palette({
-        canvas: "#paletteClassic",
-        widthResolution: 5,
-        heightResolution: 5
+        selector: "#paletteClassic",
+        width: 500,
+        height: 300,
+        widthResolution: 50,
+        heightResolution: 30
     }),
     sliderHue = new Slider({
-        canvas: "#sliderHue",
-        type: "hue"
+        selector: "#sliderHue",
+        type: "hue",
+        height: 300,
+        width: 30,
+        resolution: 10
     }),
     colorPicker = new ColorPicker({});
 
