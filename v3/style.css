@@ -16,3 +16,10 @@ h2 {
 h3 {
     color: rgba(255, 255, 255, 0.80);
 }
+
+.palette-pointer {
+    background-color: white;
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+}

@@ -3,14 +3,9 @@
  *
  * Sets up and builds a new color palette element.
  */
-class Palette {
-    type;
-    width;
-    height;
+class Palette extends ColorPickerElement {
     widthResolution;
     heightResolution;
-    canvas;
-    colorTopLeft;
     colorTopRight;
     colorBottomLeft;
     colorBottomRight;
@@ -32,29 +27,14 @@ class Palette {
      * - {array[number]} [colorBottomRight=[0, 0, 0]] - bottom right color in RGB [R, G, B] format.
      */
     constructor(data = false) {
+        super();
+        this.classType = "Palette";
+        this.init(data);
 
-        if (data === false) {
-            throw "Palette: no data given.";
-        }
-
-        this.type = data.type ? data.type : "classic";
         this.width = data.width ? data.width : 300;
         this.height = data.height ? data.height : 200;
         this.widthResolution = data.widthResolution ? data.widthResolution : 2;
         this.heightResolution = data.heightResolution ? data.heightResolution : 2;
-
-        if (data.selector) {
-            let element = document.querySelector(data.selector);
-            if (element !== undefined) {
-                this.canvas = document.createElement("canvas");
-                this.canvas.setAttribute("id", element.id + "Canvas");
-                element.appendChild(this.canvas);
-            } else {
-                throw "Palette.selector: specified DOM element not found.";
-            }
-        } else {
-            throw "Palette.selector: value is not specified."
-        }
 
         if (this.type === "classic") {
             this.colorTopLeft = data.colorTopLeft ? data.colorTopLeft : [255, 255, 255];
@@ -66,8 +46,6 @@ class Palette {
         } else {
             throw "Palette.type: specified type does not exist.";
         }
-
-        this.draw();
     }
 
     /**
@@ -75,7 +53,7 @@ class Palette {
      */
     draw() {
 
-        var ctx = this.canvas.getContext("2d"),
+        var ctx = this.elementCanvas.getContext("2d"),
             columns = Math.round(this.width / this.widthResolution),
             rows = Math.round(this.height / this.heightResolution);
 
@@ -156,5 +134,13 @@ class Palette {
                 top_right_b -= (this.colorTopRight[2] - bottom_right_b) / (rows - 1);
             }
         }
+
+        this.elementCanvas.addEventListener("mousemove", DragDrop.handleMouseMove);
+    }
+
+    remove() {
+        // TODO: test if it works
+        this.elementCanvas.removeEventListener("mousemove", DragDrop.handleMouseMove);
+        this.element.remove();
     }
 }

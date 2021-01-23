@@ -3,15 +3,11 @@
  *
  * Sets up and builds a new slider element.
  */
-class Slider {
-    type;
+class Slider extends ColorPickerElement {
     orientation;
-    width;
-    height;
     resolution;
     colorStart;
     colorEnd;
-    canvas;
 
     /**
      * Sets up the slider's attributes.
@@ -27,12 +23,10 @@ class Slider {
      * - {array[number]} [colorEnd=[0, 0, 0]] - end color in RGB [R, G, B] format.
      */
     constructor(data = false) {
+        super();
+        this.classType = "Slider";
+        this.init(data);
 
-        if (data === false) {
-            throw "Slider: no data given.";
-        }
-
-        this.type = data.type ? data.type : "classic";
         this.orientation = data.orientation ? data.orientation : "vertical";
         if (this.orientation === "vertical") {
             this.width = data.width ? data.width : 30;
@@ -44,21 +38,6 @@ class Slider {
         this.resolution = data.resolution ? data.resolution : 2;
         this.colorStart = data.colorStart ? data.colorStart : [255, 255, 255];
         this.colorEnd = data.colorEnd ? data.colorEnd : [0, 0, 0];
-
-        if (data.selector) {
-            let element = document.querySelector(data.selector);
-            if (element !== undefined) {
-                this.canvas = document.createElement("canvas");
-                this.canvas.setAttribute("id", element.id + "Canvas");
-                element.appendChild(this.canvas);
-            } else {
-                throw "Slider.selector: specified DOM element not found.";
-            }
-        } else {
-            throw "Slider.selector: value is not specified."
-        }
-
-        this.draw();
     }
 
     /**
@@ -73,7 +52,7 @@ class Slider {
         //    else (hue)
         //  Then add same condition in the constructor
 
-        var ctx = this.canvas.getContext("2d"),
+        var ctx = this.elementCanvas.getContext("2d"),
             // Sets the hue values if type = "hue".
             hue_values = [],
             // Sets the starting color, which will be in/decremented.
