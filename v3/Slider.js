@@ -23,22 +23,22 @@ class Slider {
      * - {int} [width=30]  - slider's width in pixel.
      * - {int} [height=300] - slider's height in pixel.
      * - {int} [resolution=2] - slider's resolution in pixel.
-     * - {array[number]} colorStart - start color in RGB [R, G, B] format.
-     * - {array[number]} colorEnd - end color in RGB [R, G, B] format.
+     * - {array[number]} [colorStart=[255, 255, 255]] - start color in RGB [R, G, B] format.
+     * - {array[number]} [colorEnd=[0, 0, 0]] - end color in RGB [R, G, B] format.
      */
     constructor(data = false) {
 
         if (data === false) {
-            throw "Palette: no data given.";
+            throw "Slider: no data given.";
         }
 
         this.type = data.type ? data.type : "classic";
         this.orientation = data.orientation ? data.orientation : "vertical";
         if (this.orientation === "vertical") {
             this.width = data.width ? data.width : 30;
-            this.height = data.height ? data.height : 300;
+            this.height = data.height ? data.height : 200;
         } else {
-            this.width = data.width ? data.width : 300;
+            this.width = data.width ? data.width : 200;
             this.height = data.height ? data.height : 30;
         }
         this.resolution = data.resolution ? data.resolution : 2;
