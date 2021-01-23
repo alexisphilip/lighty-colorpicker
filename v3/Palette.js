@@ -79,7 +79,6 @@ class Palette {
 
         ctx.canvas.width = this.width;
         ctx.canvas.height = this.height;
-        console.log(ctx.canvas.width);
 
         // If the selected palette type if "hue".
         if (this.type === "hue") {

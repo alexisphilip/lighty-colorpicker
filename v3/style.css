@@ -4,5 +4,15 @@ body {
     justify-content: center;
     align-content: center;
     height: 100%;
+    color: rgba(255, 255, 255, 0.70);
     background: #29303e;
+}
+
+h1,
+h2 {
+    color: rgba(255, 255, 255, 0.95);
+}
+
+h3 {
+    color: rgba(255, 255, 255, 0.80);
 }
