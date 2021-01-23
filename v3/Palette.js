@@ -26,10 +26,10 @@ class Palette {
      * - {int} [height=300] - palettes's height in pixel.
      * - {int} [widthResolution=2] - palette's width's resolution in pixel.
      * - {int} [heightResolution=2] - palette's width's resolution in pixel.
-     * - {array[number]} colorTopLeft - top left color in RGB [R, G, B] format.
-     * - {array[number]} colorTopRight - top right color in RGB [R, G, B] format.
-     * - {array[number]} colorBottomLeft - bottom left color in RGB [R, G, B] format.
-     * - {array[number]} colorBottomRight - bottom right color in RGB [R, G, B] format.
+     * - {array[number]} [colorTopLeft=[255, 255, 255]] - top left color in RGB [R, G, B] format.
+     * - {array[number]} [colorTopRight=[255, 0, 0]] - top right color in RGB [R, G, B] format.
+     * - {array[number]} [colorBottomLeft=[0, 0, 0]] - bottom left color in RGB [R, G, B] format.
+     * - {array[number]} [colorBottomRight=[0, 0, 0]] - bottom right color in RGB [R, G, B] format.
      */
     constructor(data = false) {
 
@@ -39,7 +39,7 @@ class Palette {
 
         this.type = data.type ? data.type : "classic";
         this.width = data.width ? data.width : 300;
-        this.height = data.height ? data.height : 300;
+        this.height = data.height ? data.height : 200;
         this.widthResolution = data.widthResolution ? data.widthResolution : 2;
         this.heightResolution = data.heightResolution ? data.heightResolution : 2;
 
@@ -79,6 +79,7 @@ class Palette {
 
         ctx.canvas.width = this.width;
         ctx.canvas.height = this.height;
+        console.log(ctx.canvas.width);
 
         // If the selected palette type if "hue".
         if (this.type === "hue") {
