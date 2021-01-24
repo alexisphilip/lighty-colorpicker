@@ -12,33 +12,45 @@ class DragDrop {
      * The drag and drop DOM element, parent of the 'canvas' and pointer.
      * @var {HTMLElement}
      */
-    dragDropZone;
+    static dragDropZone;
     /**
      * The pointer DOM element.
      * @var {HTMLElement}
      */
-    dragDropPointer;
+    static dragDropPointer;
     /**
      * The pointer DOM element's offset (if element is 15px, offset is 7px).
      * @var {number}
      */
-    dragDropPointerOffset;
+    static dragDropPointerOffset;
+    static classType;
+    static orientation;
 
     /**
-     * Sets data and a listener per Palette/Slider instance.
-     *
-     * @param {HTMLElement} dragDropZone- The drag and drop DOM element, parent of the 'canvas' and pointer.
-     * @param {HTMLElement} dragDropPointer - The pointer DOM element.
+     * Initializes the drag and drop global listeners.
+     * This function is called at each ColorPicker instance, but its
+     * listeners are only instantiated once (to prevent duplicates).
      */
-    constructor(dragDropZone, dragDropPointer) {
-        this.dragDropZone = dragDropZone;
-        this.dragDropPointer = dragDropPointer;
-        this.dragDropPointerOffset = Math.floor(dragDropPointer.offsetWidth / 2);
+    static init() {
+        window.addEventListener("mousedown", (e) => {
+            let dragDropZone = e.target.closest(".cp-dragdrop");
+            if (dragDropZone !== null) {
+                DragDrop.isMouseDown = true;
+                DragDrop.dragDropZone = dragDropZone;
+                DragDrop.dragDropPointer = dragDropZone.querySelector(".cp-pointer");
+                DragDrop.dragDropPointerOffsetX = Math.floor(DragDrop.dragDropPointer.offsetWidth / 2);
+                DragDrop.dragDropPointerOffsetY = Math.floor(DragDrop.dragDropPointer.offsetHeight / 2);
+                DragDrop.classType = dragDropZone.dataset.classtype;
+                if (DragDrop.classType === "slider") {
+                    DragDrop.orientation = dragDropZone.dataset.orientation;
+                }
+                DragDrop.movePointer(e);
+            }
+        });
 
-        // this.init();
         window.addEventListener("mousemove", (e) => {
             if (DragDrop.isMouseDown) {
-                this.movePointer(e);
+                DragDrop.movePointer(e);
             }
         });
         window.addEventListener("mouseup", (e) => {
@@ -46,32 +58,6 @@ class DragDrop {
                 DragDrop.isMouseDown = false;
             }
         });
-
-        this.dragDropZone.addEventListener("mousedown", (e) => {
-            DragDrop.isMouseDown = true;
-            this.movePointer(e);
-        });
-    }
-
-    /**
-     * Initializes the drag and drop global listeners.
-     * This function is called at each ColorPicker instance, but its
-     * listeners are only instantiated once (to prevent duplicates).
-     */
-    init() {
-        // if (!DragDrop.isInstantiated) {
-        //     DragDrop.isInstantiated = true;
-        //     window.addEventListener("mousemove", (e) => {
-        //         if (DragDrop.isMouseDown) {
-        //             this.movePointer(e);
-        //         }
-        //     });
-        //     window.addEventListener("mouseup", (e) => {
-        //         if (DragDrop.isMouseDown) {
-        //             DragDrop.isMouseDown = false;
-        //         }
-        //     });
-        // }
     }
 
     /**
@@ -79,14 +65,22 @@ class DragDrop {
      *
      * @param {Event} e
      */
-    movePointer(e) {
-        let dragDropInnerWidth = this.dragDropZone.clientWidth,
-            dragDropInnerHeight = this.dragDropZone.clientHeight,
-            dragDropDistances = this.dragDropZone.getBoundingClientRect(),
+    static movePointer(e) {
+        let dragDropInnerWidth = DragDrop.dragDropZone.clientWidth,
+            dragDropInnerHeight = DragDrop.dragDropZone.clientHeight,
+            dragDropDistances = DragDrop.dragDropZone.getBoundingClientRect(),
             visualX = Math.max(0, Math.min(e.pageX - dragDropDistances.left, dragDropInnerWidth - 1)),
             visualY = Math.max(0, Math.min(e.pageY - dragDropDistances.top, dragDropInnerHeight - 1));
 
-        this.dragDropPointer.style.top = visualY - this.dragDropPointerOffset + "px";
-        this.dragDropPointer.style.left = visualX - this.dragDropPointerOffset + "px";
+        if (DragDrop.classType === "slider") {
+            if (DragDrop.orientation === "vertical") {
+                this.dragDropPointer.style.top = visualY - DragDrop.dragDropPointerOffsetY + "px";
+            } else {
+                this.dragDropPointer.style.left = visualX - DragDrop.dragDropPointerOffsetX + "px";
+            }
+        } else {
+            this.dragDropPointer.style.left = visualX - DragDrop.dragDropPointerOffsetX + "px";
+            this.dragDropPointer.style.top = visualY - DragDrop.dragDropPointerOffsetY + "px";
+        }
     }
 }

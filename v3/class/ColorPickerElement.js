@@ -6,6 +6,7 @@ class ColorPickerElement {
     type;
     width;
     height;
+    id;
     element;
     elementCanvas;
     elementPointer;
@@ -45,9 +46,15 @@ class ColorPickerElement {
             this.element = document.querySelector(data.selector);
             // If the element exists.
             if (this.element !== undefined) {
-                // Sets the parent's CSS.
+                this.id = this.element.id;
+                // Sets the parent's attributes.
                 this.element.setAttribute("style",
                     "position: relative; width: " + this.width + "px; height: " + this.height + "px;");
+                this.element.setAttribute("class", "cp-dragdrop");
+                this.element.setAttribute("data-classtype", this.classType);
+                if (this.classType === "slider") {
+                    this.element.setAttribute("data-orientation", data.orientation);
+                }
                 // Creates & appends the 'canvas' element.
                 this.elementCanvas = document.createElement("canvas");
                 this.elementCanvas.setAttribute("id", this.element.id + "Canvas");
@@ -76,17 +83,18 @@ class ColorPickerElement {
             this.elementPointer.setAttribute("id", this.element.id + "Pointer");
         }
 
-        // Sets the pointer's HTML class.
-        if (this.classType === "Palette") {
+        // Sets the pointer's HTML classes.
+        this.elementPointer.classList.add("cp-pointer");
+        if (this.classType === "palette") {
             this.elementPointer.classList.add("cp-pointer-palette");
         } else {
             this.elementPointer.classList.add("cp-pointer-slider-" + data.orientation);
             // Sets the pointer size.
             if (this.orientation === "vertical") {
                 this.elementPointer.style.width = this.width + "px";
-                this.elementPointer.style.height = "7px";
+                this.elementPointer.style.height = "10px";
             } else {
-                this.elementPointer.style.width = "7px";
+                this.elementPointer.style.width = "10px";
                 this.elementPointer.style.height = this.height + "px";
             }
         }
@@ -96,7 +104,7 @@ class ColorPickerElement {
     }
 
     addDragDrop() {
-        this.dragDrop = new DragDrop(this.element, this.elementPointer);
+        // this.dragDrop = new DragDrop(this.element, this.elementPointer);
         this.elementPointer.style.top = 0;
         this.elementPointer.style.left = 0;
     }

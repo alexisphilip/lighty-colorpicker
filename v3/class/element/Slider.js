@@ -15,7 +15,7 @@ class Slider extends ColorPickerElement {
      * @param data {object|boolean} - See parent class for details.
      */
     constructor(data = false) {
-        super(data, "Slider");
+        super(data, "slider");
 
         // TODO: find a way to make that part lighter.
         data.orientation = data.orientation ? data.orientation : "vertical";

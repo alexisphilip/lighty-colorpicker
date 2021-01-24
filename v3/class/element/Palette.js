@@ -17,7 +17,7 @@ class Palette extends ColorPickerElement {
      * @param data {object|boolean} - See parent class for details.
      */
     constructor(data = false) {
-        super(data, "Palette");
+        super(data, "palette");
 
         this.width = data.width ? data.width : 300;
         this.height = data.height ? data.height : 200;

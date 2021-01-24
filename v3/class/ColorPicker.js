@@ -5,7 +5,7 @@
  * multiple options, palettes, and sliders.
  */
 class ColorPicker {
-
+    // static colorPickers = [];
     palettes = []; // ?
     sliders = []; // ?
     /* TODO
@@ -75,6 +75,7 @@ class ColorPicker {
             this.palettes.push(objects[i]);
             objects[i].draw();
             objects[i].addDragDrop();
+            DragDrop.init()
         }
     }
 
@@ -93,6 +94,16 @@ class ColorPicker {
             this.palettes.push(objects[i]);
             objects[i].draw();
             objects[i].addDragDrop();
+            DragDrop.init()
         }
+    }
+
+    /**
+     * TODO: write custom error function.
+     * @param msg
+     * @constructor
+     */
+    static Error(msg) {
+
     }
 }
