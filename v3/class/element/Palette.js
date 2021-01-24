@@ -1,5 +1,5 @@
 /**
- * Palette.
+ * Palette
  *
  * Sets up and builds a new color palette element.
  */
@@ -14,22 +14,10 @@ class Palette extends ColorPickerElement {
     /**
      * Sets up the palette's attributes.
      *
-     * @param {object|boolean} data:
-     * - {DOMString} canvas - DOM element selector string.
-     * - {string} [type=classic] - "classic" or "hue".
-     * - {int} [width=300] - palette's width in pixel.
-     * - {int} [height=300] - palettes's height in pixel.
-     * - {int} [widthResolution=2] - palette's width's resolution in pixel.
-     * - {int} [heightResolution=2] - palette's width's resolution in pixel.
-     * - {array[number]} [colorTopLeft=[255, 255, 255]] - top left color in RGB [R, G, B] format.
-     * - {array[number]} [colorTopRight=[255, 0, 0]] - top right color in RGB [R, G, B] format.
-     * - {array[number]} [colorBottomLeft=[0, 0, 0]] - bottom left color in RGB [R, G, B] format.
-     * - {array[number]} [colorBottomRight=[0, 0, 0]] - bottom right color in RGB [R, G, B] format.
+     * @param data {object|boolean} - See parent class for details.
      */
     constructor(data = false) {
-        super();
-        this.classType = "Palette";
-        this.init(data);
+        super(data, "Palette");
 
         this.width = data.width ? data.width : 300;
         this.height = data.height ? data.height : 200;
@@ -46,13 +34,14 @@ class Palette extends ColorPickerElement {
         } else {
             throw "Palette.type: specified type does not exist.";
         }
+
+        this.init(data);
     }
 
     /**
      * Draws the palette.
      */
     draw() {
-
         var ctx = this.elementCanvas.getContext("2d"),
             columns = Math.round(this.width / this.widthResolution),
             rows = Math.round(this.height / this.heightResolution);
@@ -134,13 +123,5 @@ class Palette extends ColorPickerElement {
                 top_right_b -= (this.colorTopRight[2] - bottom_right_b) / (rows - 1);
             }
         }
-
-        this.elementCanvas.addEventListener("mousemove", DragDrop.handleMouseMove);
-    }
-
-    remove() {
-        // TODO: test if it works
-        this.elementCanvas.removeEventListener("mousemove", DragDrop.handleMouseMove);
-        this.element.remove();
     }
 }

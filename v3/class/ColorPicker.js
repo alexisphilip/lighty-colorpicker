@@ -11,6 +11,9 @@ class ColorPicker {
     /* TODO
      *  Instead of processing all of formats, try calculating
      *  only the different types (r, g, b, h, s, l, b, c, m, y, k...)
+     *  Get convesion script from
+     *  https://google.com/ or
+     *  https://colorpicker.me/#67c28a
      */
     rgb;
     hex;
@@ -37,7 +40,7 @@ class ColorPicker {
         // // Converts default color to all color formats.
         // this.updateColorFormats(this.rgb[0], this.rgb[1], this.rgb[2]);
 
-        DragDrop.init();
+        // DragDrop.init();
     }
 
     /**
@@ -62,14 +65,16 @@ class ColorPicker {
      * @param {(object|object[])} palettes - One palette or an array of palettes.
      */
     addPalette(palettes) {
-        if (palettes instanceof Array) {
-            for (let i = 0; i < palettes.length; i++) {
-                this.palettes.push(palettes[i]);
-                palettes[i].draw();
-            }
+        let objects = [];
+        if (!(palettes instanceof Array)) {
+            objects.push(palettes);
         } else {
-            this.palettes.push(palettes);
-            palettes.draw();
+            objects = [...palettes];
+        }
+        for (let i = 0; i < objects.length; i++) {
+            this.palettes.push(objects[i]);
+            objects[i].draw();
+            objects[i].addDragDrop();
         }
     }
 
@@ -78,14 +83,16 @@ class ColorPicker {
      * @param {(object|object[])} sliders - One slide or an array of sliders.
      */
     addSlider(sliders) {
-        if (sliders instanceof Array) {
-            for (let i = 0; i < sliders.length; i++) {
-                this.sliders.push(sliders[i]);
-                sliders[i].draw();
-            }
+        let objects = [];
+        if (!(sliders instanceof Array)) {
+            objects.push(sliders);
         } else {
-            this.sliders.push(sliders);
-            sliders.draw();
+            objects = [...sliders];
+        }
+        for (let i = 0; i < objects.length; i++) {
+            this.palettes.push(objects[i]);
+            objects[i].draw();
+            objects[i].addDragDrop();
         }
     }
 }

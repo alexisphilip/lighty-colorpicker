@@ -1,5 +1,5 @@
 /**
- * DropDrop
+ * DragDrop
  *
  * Sets up a drag & drop stack of events on 2 elements:
  * - the drop zone (must be a canvas);
@@ -7,94 +7,86 @@
  */
 class DragDrop {
     static isInstantiated = false;
-    static mouseDown = false;
+    static isMouseDown = false;
+    /**
+     * The drag and drop DOM element, parent of the 'canvas' and pointer.
+     * @var {HTMLElement}
+     */
+    dragDropZone;
+    /**
+     * The pointer DOM element.
+     * @var {HTMLElement}
+     */
+    dragDropPointer;
+    /**
+     * The pointer DOM element's offset (if element is 15px, offset is 7px).
+     * @var {number}
+     */
+    dragDropPointerOffset;
 
-    constructor() {
+    /**
+     * Sets data and a listener per Palette/Slider instance.
+     *
+     * @param {HTMLElement} dragDropZone- The drag and drop DOM element, parent of the 'canvas' and pointer.
+     * @param {HTMLElement} dragDropPointer - The pointer DOM element.
+     */
+    constructor(dragDropZone, dragDropPointer) {
+        this.dragDropZone = dragDropZone;
+        this.dragDropPointer = dragDropPointer;
+        this.dragDropPointerOffset = Math.floor(dragDropPointer.offsetWidth / 2);
 
-        // this.canvas = document.querySelector(data.canvas); // The canvas element.
-        // // this.canvasWidth = this.canvas.clientWidth;
-        // // this.canvasHeight = this.canvas.clientHeight;
-        // this.pointer = document.querySelector(data.pointer); // The pointer element.
-        // this.pointerHalfWidth = Math.round(this.pointer.offsetWidth / 2);
-        // this.pointerHalfHeight = Math.round(this.pointer.offsetHeight / 2);
-        // // this.pointerX = data.pointerX; // The pointers X position.
-        // // this.pointerY = data.pointerY; // The pointers Y position.
-        //
-        // this.addEvents();
-    }
+        // this.init();
+        window.addEventListener("mousemove", (e) => {
+            if (DragDrop.isMouseDown) {
+                this.movePointer(e);
+            }
+        });
+        window.addEventListener("mouseup", (e) => {
+            if (DragDrop.isMouseDown) {
+                DragDrop.isMouseDown = false;
+            }
+        });
 
-    static init() {
-        let thus = this;
-        if (!this.isInstantiated) {
-            this.isInstantiated = true;
-            window.addEventListener("mousemove", this.handleMouseMove)
-            window.addEventListener("mouseup", (e) => {
-                if (this.mouseDown) {
-                    this.mouseDown = false;
-                }
-            });
-        }
-    }
-
-    static handleMouseMove(e) {
-        DragDrop.pointerMove();
-    }
-
-    static handleMouseUp(e) {
-    }
-
-    static pointerMove() {
-        console.log("move");
+        this.dragDropZone.addEventListener("mousedown", (e) => {
+            DragDrop.isMouseDown = true;
+            this.movePointer(e);
+        });
     }
 
     /**
-     * Adds the events.
+     * Initializes the drag and drop global listeners.
+     * This function is called at each ColorPicker instance, but its
+     * listeners are only instantiated once (to prevent duplicates).
      */
-    addEvents() {
-
-        let isMouseDown = false;
-
-        this.canvas.addEventListener("mousemove")
-
-        // var isMouseDown = false,
-        //     mouseX,
-        //     mouseY;
-        //
-        // // Places cursor on the canvas.
-        // this.pointer.style.top = 0 - this.pointerHalfWidth + "px";
-        // this.pointer.style.right = 0 - this.pointerHalfHeight + "px";
-        //
-        // this.canvas.addEventListener("mousedown", (e) => {
-        //     isMouseDown = true;
-        //
-        //     mouseX = e.clientX;
-        //     mouseY = e.clientY;
-        // });
-        //
-        // document.addEventListener("mouseup", (e) => {
-        //     isMouseDown = false;
-        // });
-        //
-        // document.addEventListener("mousemove", (e) => {
-        //     // console.log(e.layerY, e.layerX);
-        //     if (isMouseDown) {
-        //
-        //         var diffX = e.clientX - mouseX,
-        //             diffY = e.clientY - mouseY;
-        //
-        //         var moveX;
-        //         console.log(diffX, diffY);
-        //
-        //         // this.pointer.style.top = e.layerY - this.pointerHalfHeight + "px";
-        //         // this.pointer.style.left = e.layerX - this.pointerHalfWidth + "px";
-        //     }
-        // });
+    init() {
+        // if (!DragDrop.isInstantiated) {
+        //     DragDrop.isInstantiated = true;
+        //     window.addEventListener("mousemove", (e) => {
+        //         if (DragDrop.isMouseDown) {
+        //             this.movePointer(e);
+        //         }
+        //     });
+        //     window.addEventListener("mouseup", (e) => {
+        //         if (DragDrop.isMouseDown) {
+        //             DragDrop.isMouseDown = false;
+        //         }
+        //     });
+        // }
     }
 
     /**
-     * Removes the events.
+     * Moves the pointer on the canvas.
+     *
+     * @param {Event} e
      */
-    removeEvents() {
+    movePointer(e) {
+        let dragDropInnerWidth = this.dragDropZone.clientWidth,
+            dragDropInnerHeight = this.dragDropZone.clientHeight,
+            dragDropDistances = this.dragDropZone.getBoundingClientRect(),
+            visualX = Math.max(0, Math.min(e.pageX - dragDropDistances.left, dragDropInnerWidth - 1)),
+            visualY = Math.max(0, Math.min(e.pageY - dragDropDistances.top, dragDropInnerHeight - 1));
 
+        this.dragDropPointer.style.top = visualY - this.dragDropPointerOffset + "px";
+        this.dragDropPointer.style.left = visualX - this.dragDropPointerOffset + "px";
     }
 }

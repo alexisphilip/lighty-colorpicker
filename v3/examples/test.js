@@ -42,24 +42,28 @@
 // console.log("To CMYK");
 // console.log(rgbToCmyk(rgb[0], rgb[1], rgb[2]));
 
-let paletteClassic = new Palette({
-        selector: "#paletteClassic",
-        width: 500,
-        height: 300,
-        widthResolution: 50,
-        heightResolution: 30
-    }),
-    sliderHue = new Slider({
-        selector: "#sliderHue",
-        type: "hue",
-        height: 300,
-        width: 30,
-        resolution: 10
-    }),
-    colorPicker = new ColorPicker({});
+document.addEventListener("DOMContentLoaded", (e) => {
 
-colorPicker.addPalette(paletteClassic);
-colorPicker.addSlider(sliderHue);
+    let paletteClassic = new Palette({
+            selector: "#paletteClassic",
+            width: 500,
+            height: 300,
+            widthResolution: 50,
+            heightResolution: 30
+        }),
+        sliderHue = new Slider({
+            selector: "#sliderHue",
+            type: "hue",
+            height: 300,
+            width: 30,
+            resolution: 10
+        }),
+        colorPicker = new ColorPicker({});
+
+    colorPicker.addPalette(paletteClassic);
+    colorPicker.addSlider(sliderHue);
+});
+
 
 // var dragDrop = new DragDrop({
 //     canvas: "#huePalette",

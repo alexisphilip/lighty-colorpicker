@@ -1,33 +1,25 @@
 /**
- * Slider.
+ * Slider
  *
  * Sets up and builds a new slider element.
  */
 class Slider extends ColorPickerElement {
-    orientation;
     resolution;
     colorStart;
     colorEnd;
+    orientation;
 
     /**
      * Sets up the slider's attributes.
      *
-     * @param {object|boolean} data:
-     * - {DOMString} canvas - DOM element selector string.
-     * - {string} [type=classic] - "classic" or "hue".
-     * - {string} [orientation=vertical] - "vertical" or "horizontal".
-     * - {int} [width=30]  - slider's width in pixel.
-     * - {int} [height=300] - slider's height in pixel.
-     * - {int} [resolution=2] - slider's resolution in pixel.
-     * - {array[number]} [colorStart=[255, 255, 255]] - start color in RGB [R, G, B] format.
-     * - {array[number]} [colorEnd=[0, 0, 0]] - end color in RGB [R, G, B] format.
+     * @param data {object|boolean} - See parent class for details.
      */
     constructor(data = false) {
-        super();
-        this.classType = "Slider";
-        this.init(data);
+        super(data, "Slider");
 
-        this.orientation = data.orientation ? data.orientation : "vertical";
+        // TODO: find a way to make that part lighter.
+        data.orientation = data.orientation ? data.orientation : "vertical";
+        this.orientation = data.orientation;
         if (this.orientation === "vertical") {
             this.width = data.width ? data.width : 30;
             this.height = data.height ? data.height : 200;
@@ -38,6 +30,8 @@ class Slider extends ColorPickerElement {
         this.resolution = data.resolution ? data.resolution : 2;
         this.colorStart = data.colorStart ? data.colorStart : [255, 255, 255];
         this.colorEnd = data.colorEnd ? data.colorEnd : [0, 0, 0];
+
+        this.init(data);
     }
 
     /**

@@ -1,0 +1,45 @@
+html,
+body {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  height: 100%;
+  color: rgba(255, 255, 255, 0.70);
+  background: #29303e;
+}
+
+h1,
+h2 {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+h3 {
+  color: rgba(255, 255, 255, 0.80);
+}
+
+.cp {
+  &-canvas {
+    //width: 100%;
+    //height: 100%;
+  }
+
+  &-pointer {
+
+    &-palette {
+      border: 2px solid grey;
+      position: absolute;
+      background-color: white;
+      width: 25px;
+      height: 25px;
+      border-radius: 15px;
+    }
+
+    &-slider-horizontal,
+    &-slider-vertical {
+      border: 2px solid grey;
+      position: absolute;
+      background-color: white;
+      border-radius: 2px;
+    }
+  }
+}
