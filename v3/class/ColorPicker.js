@@ -14,6 +14,8 @@ class ColorPicker {
      *  Get convesion script from
      *  https://google.com/ or
      *  https://colorpicker.me/#67c28a
+     *  See more examples here
+     *  https://gamedev.stackexchange.com/a/67443
      */
     rgb;
     hex;
