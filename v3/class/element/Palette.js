@@ -36,10 +36,13 @@ class Palette extends ColorPickerElement {
         }
 
         this.init(data);
+        this.draw();
     }
 
     /**
      * Draws the palette.
+     * TODO: test performance
+     * TODO: update with new function `rgbInterval`?
      */
     draw() {
         var ctx = this.elementCanvas.getContext("2d"),

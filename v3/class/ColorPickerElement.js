@@ -37,8 +37,14 @@ class ColorPickerElement {
         }
 
         this.type = data.type ? data.type : "classic";
+        // TODO: change this condition?
+        this.colorType = data.colorType ? data.colorType : null;
     }
 
+    /**
+     * Builds the <canvas> and pointer HTML elements.
+     * @param {object} data 
+     */
     init(data) {
 
         // If a selector is given.
@@ -50,7 +56,7 @@ class ColorPickerElement {
                 // Sets the parent's attributes.
                 this.element.setAttribute("style",
                     "position: relative; width: " + this.width + "px; height: " + this.height + "px;");
-                this.element.setAttribute("class", "cp-dragdrop");
+                this.element.setAttribute("class", "cp-element");
                 this.element.setAttribute("data-classtype", this.classType);
                 if (this.classType === "slider") {
                     this.element.setAttribute("data-orientation", data.orientation);
@@ -101,10 +107,8 @@ class ColorPickerElement {
 
         // Moves or appends the pointer element after the 'canvas' element.
         this.element.appendChild(this.elementPointer);
-    }
-
-    addDragDrop() {
-        // this.dragDrop = new DragDrop(this.element, this.elementPointer);
+    
+        DragDrop.init();
         this.elementPointer.style.top = 0;
         this.elementPointer.style.left = 0;
     }

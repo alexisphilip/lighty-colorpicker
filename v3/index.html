@@ -14,111 +14,126 @@
 </head>
 <body>
 
-<!-- Color picker: all types -->
-<!--<div class="container">-->
-<!--    <h2 class="mt-3">Palettes</h2>-->
-<!--    <div class="row">-->
-<!--        <div class="col d-flex flex-column justify-content-between">-->
-<!--            <div>-->
-<!--                <h3>Classic</h3>-->
-<!--                <p>Hue, white and black</p>-->
-<!--            </div>-->
-<!--            <div>-->
-<!--                <canvas id="paletteClassic"></canvas>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="col d-flex flex-column justify-content-between">-->
-<!--            <div>-->
-<!--                <h3>Classic custom</h3>-->
-<!--                <p>RGB and white</p>-->
-<!--            </div>-->
-<!--            <div>-->
-<!--                <canvas id="paletteClassicCustom"></canvas>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="col d-flex flex-column justify-content-between">-->
-<!--            <div>-->
-<!--                <h3>Hue</h3>-->
-<!--                <p>Hue selector</p>-->
-<!--            </div>-->
-<!--            <div>-->
-<!--                <canvas id="paletteHue"></canvas>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    <h2 class="mt-3">Sliders</h2>-->
-<!--    <div class="row">-->
-<!--        <div class="col">-->
-<!--            <div>-->
-<!--                <h3>RGB</h3>-->
-<!--                <p>Red, green, blue</p>-->
-<!--            </div>-->
-<!--            <div class="row">-->
-<!--                <div class="col">-->
-<!--                    <canvas id="sliderRed"></canvas>-->
-<!--                </div>-->
-<!--                <div class="col">-->
-<!--                    <canvas id="sliderGreen"></canvas>-->
-<!--                </div>-->
-<!--                <div class="col">-->
-<!--                    <canvas id="sliderBlue"></canvas>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="col">-->
-<!--            <div>-->
-<!--                <h3>HSL & HSV</h3>-->
-<!--                <p>Hue, saturation, lightness (HSL) and value</p>-->
-<!--            </div>-->
-<!--            <div class="row">-->
-<!--                <div class="col">-->
-<!--                    <canvas id="sliderHue"></canvas>-->
-<!--                </div>-->
-<!--                <div class="col">-->
-<!--                    <canvas id="sliderSaturation"></canvas>-->
-<!--                </div>-->
-<!--                <div class="col">-->
-<!--                    <canvas id="sliderLightness"></canvas>-->
-<!--                </div>-->
-<!--                <div class="col">-->
-<!--                    <canvas id="sliderValue"></canvas>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="col">-->
-<!--            <div>-->
-<!--                <h3>CMYK</h3>-->
-<!--                <p>Cyan, magenta, yellow, key</p>-->
-<!--            </div>-->
-<!--            <div class="row">-->
-<!--                <div class="col">-->
-<!--                    <canvas id="sliderCyan"></canvas>-->
-<!--                </div>-->
-<!--                <div class="col">-->
-<!--                    <canvas id="sliderMagenta"></canvas>-->
-<!--                </div>-->
-<!--                <div class="col">-->
-<!--                    <canvas id="sliderYellow"></canvas>-->
-<!--                </div>-->
-<!--                <div class="col">-->
-<!--                    <canvas id="sliderKey"></canvas>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-
-<!-- Color picker: test -->
+<!-- Color picker: complete -->
 <div class="container">
+   <h2 class="mt-3">Palettes</h2>
+   <div class="row">
+       <div class="col d-flex flex-column justify-content-between">
+           <div>
+               <h3>Classic</h3>
+               <p>Hue, white and black</p>
+            </div>
+           <div>
+               <div id="paletteClassic"></div>
+           </div>
+       </div>
+       <div class="col d-flex flex-column justify-content-between">
+           <div>
+               <h3>Classic custom</h3>
+               <p>RGB and white</p>
+           </div>
+           <div>
+               <div id="paletteClassicCustom"></div>
+           </div>
+        </div>
+        <div class="col d-flex flex-column justify-content-between">
+            <div>
+                <h3>Hue</h3>
+                <p>Hue selector</p>
+            </div>
+            <div>
+                <div id="paletteHue"></div>
+            </div>
+        </div>
+    </div>
+    <h2 class="mt-3">Sliders</h2>
+    <div class="row">
+        <div class="col">
+            <div>
+                <h3>RGB</h3>
+                <p>Red, green, blue</p>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div id="sliderRed"></div>
+                </div>
+                <div class="col">
+                    <div id="sliderGreen"></div>
+                </div>
+                <div class="col">
+                    <div id="sliderBlue"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div>
+                <h3>HSL & HSV</h3>
+                <p>Hue, saturation, lightness (HSL) and value</p>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div id="sliderHue"></div>
+                </div>
+                <div class="col">
+                    <div id="sliderSaturation"></div>
+                </div>
+                <div class="col">
+                    <div id="sliderLightness"></div>
+                </div>
+                <div class="col">
+                    <div id="sliderValue"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div>
+                <h3>CMYK</h3>
+                <p>Cyan, magenta, yellow, key</p>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div id="sliderCyan"></div>
+                </div>
+                <div class="col">
+                    <div id="sliderMagenta"></div>
+                </div>
+                <div class="col">
+                    <div id="sliderYellow"></div>
+                </div>
+                <div class="col">
+                    <div id="sliderKey"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Color picker: simple -->
+<!-- <div class="container">
     <div class="row mt-5">
         <div class="col">
             <div id="paletteClassic"></div>
         </div>
         <div class="col">
+            <div id="sliderDynamic"></div>
+        </div>
+        <div class="col">
+            <div id="sliderValue"></div>
+        </div>
+        <div class="col">
             <div id="sliderHue"></div>
         </div>
+        <div class="col">
+            <div id="sliderRed"></div>
+        </div>
+        <div class="col">
+            <div id="sliderGreen"></div>
+        </div>
+        <div class="col">
+            <div id="sliderBlue"></div>
+        </div>
     </div>
-</div>
+</div> -->
 
 <!-- Third party -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -139,7 +154,7 @@
 <script src="class/element/Palette.js"></script>
 <script src="class/element/Slider.js"></script>
 <!-- Example to load (one only) -->
-<!--<script src="examples/all-types.js"></script>-->
-<script src="examples/test.js"></script>
+<script src="examples/complete.js"></script>
+<!-- <script src="examples/simple.js"></script> -->
 </body>
 </html>

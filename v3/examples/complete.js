@@ -1,13 +1,13 @@
 // Complete color picker.
 // Palettes:
 let paletteClassic = new Palette({
-        canvas: "#paletteClassic",
+        selector: "#paletteClassic",
         widthResolution: 5,
         heightResolution: 5,
         colorTopRight: [255, 99, 71]
     }),
     paletteClassicCustom = new Palette({
-        canvas: "#paletteClassicCustom",
+        selector: "#paletteClassicCustom",
         widthResolution: 5,
         heightResolution: 5,
         colorTopLeft: [255, 0, 0],
@@ -16,55 +16,55 @@ let paletteClassic = new Palette({
         colorBottomRight: [0, 0, 255]
     }),
     paletteHue = new Palette({
-        canvas: "#paletteHue",
+        selector: "#paletteHue",
         type: "hue",
         widthResolution: 5,
         heightResolution: 5
     });
 // Sliders:
 let sliderRed = new Slider({
-        canvas: "#sliderRed",
+        selector: "#sliderRed",
         colorEnd: [255, 0, 0]
     }),
     sliderGreen = new Slider({
-        canvas: "#sliderGreen",
+        selector: "#sliderGreen",
         colorEnd: [0, 255, 0]
     }),
     sliderBlue = new Slider({
-        canvas: "#sliderBlue",
+        selector: "#sliderBlue",
         colorEnd: [0, 0, 255]
     }),
     sliderHue = new Slider({
-        canvas: "#sliderHue",
+        selector: "#sliderHue",
         type: "hue"
     }),
     sliderSaturation = new Slider({
-        canvas: "#sliderSaturation",
+        selector: "#sliderSaturation",
         colorStart: [127, 127, 127],
         colorEnd: [255, 0, 0]
     }),
     sliderLightness = new Slider({
-        canvas: "#sliderLightness",
+        selector: "#sliderLightness",
         colorEnd: [255, 0, 0]
     }),
     sliderValue = new Slider({
-        canvas: "#sliderValue",
+        selector: "#sliderValue",
         colorEnd: [0, 0, 0]
     }),
     sliderCyan = new Slider({
-        canvas: "#sliderCyan",
+        selector: "#sliderCyan",
         colorEnd: [0, 255, 255]
     }),
     sliderMagenta = new Slider({
-        canvas: "#sliderMagenta",
+        selector: "#sliderMagenta",
         colorEnd: [255, 0, 255]
     }),
     sliderYellow = new Slider({
-        canvas: "#sliderYellow",
+        selector: "#sliderYellow",
         colorEnd: [255, 255, 0]
     }),
     sliderKey = new Slider({
-        canvas: "#sliderKey",
+        selector: "#sliderKey",
         colorEnd: [0, 0, 0]
     });
 // Color picker:

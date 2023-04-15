@@ -32,6 +32,7 @@ class Slider extends ColorPickerElement {
         this.colorEnd = data.colorEnd ? data.colorEnd : [0, 0, 0];
 
         this.init(data);
+        this.draw();
     }
 
     /**

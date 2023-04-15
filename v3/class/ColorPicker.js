@@ -75,9 +75,6 @@ class ColorPicker {
         }
         for (let i = 0; i < objects.length; i++) {
             this.palettes.push(objects[i]);
-            objects[i].draw();
-            objects[i].addDragDrop();
-            DragDrop.init()
         }
     }
 
@@ -94,9 +91,6 @@ class ColorPicker {
         }
         for (let i = 0; i < objects.length; i++) {
             this.palettes.push(objects[i]);
-            objects[i].draw();
-            objects[i].addDragDrop();
-            DragDrop.init()
         }
     }
 
